@@ -5,16 +5,19 @@
 const mongoose = require('mongoose');
 const User = require('../database/collections/user');
 const generateToken = require('../token/generateToken');
+const bcrypt = require('bcryptjs');
 
 // signUp-------------
 function signUp(req, res){
+  
 
     const user = new User({
          name :req.body.name,
          lastname: req.body.lastname,
          phone: req.body.phone,
          email:req.body.email,
-         password: req.body.password
+         //encriptando la contraceña
+         password: bcrypt.hashSync(req.body.password,10) 
     })
     const email=req.body.email;
     const password=req.body.password;
@@ -49,7 +52,9 @@ function signIn(req, res){
     const email = req.body.email;
     const password = req.body.password;
     
-    User.findOne({email:req.body.email,password:req.body.password}, (err, user)=>{
+
+
+    User.findOne({email:req.body.email}, (err, user)=>{
         if(err){
             return res.statud(500).send({message:err})
         } 
@@ -57,7 +62,14 @@ function signIn(req, res){
             
             return res.status(404).send({ message:'Email o password incorrectos' })
         }
-        
+        //desencriptando y comprobando la existencia de la contraceña
+        if(!bcrypt.compareSync(req.body.password,user.password)){
+            return res.status(400).json({
+                err: {
+                    menssage: 'Email o password incorrectos'
+                }
+            });
+        }
         req.user = user;
         res.status(200).send({
             message:'Te has logueado conrrectamente',

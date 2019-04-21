@@ -3,6 +3,7 @@
 const jwt = require('jwt-simple');
 const moment = require('moment');
 const config = require('../config');
+const User = require('../database/collections/user')
 
 //function que crea el token-----
 function createToken (user){
@@ -23,12 +24,14 @@ function decodeToken(token){
             //console.log(payload)
             console.log(payload.exp-moment().unix())
             console.log(moment().unix())
+            
             if(payload.exp <= moment().unix()){
                 reject({
                     status:401,
                     message:'El token a exprirado'
                 })
             }
+            
             resolve(payload.sub)
         } catch (error) {
             reject({
