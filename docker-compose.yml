@@ -1,19 +1,20 @@
-version: '2'
-
+    
+version: '3'
 services:
-  web:
+  app:
     build: .
-    volumes:
-      - ./:/app
-      - /app/node_modules
-    ports:
-      - '7777:7777'
     links:
       - mongo
-
+    ports:
+      - "3005:3005"
+    volumes:
+      - .:/opt/app
+      - /opt/app/node_modules
   mongo:
     image: mongo
     ports:
-      - '27017:27017'
+      - "27017:27017"
     volumes:
-      - /data/db
+      - mongodata:/data/db
+volumes:
+  mongodata:

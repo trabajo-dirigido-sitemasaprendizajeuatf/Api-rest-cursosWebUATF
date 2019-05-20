@@ -8,11 +8,17 @@ const bcrypt = require('bcryptjs')
 const UserSchema = Schema({
     name: String,
     lastname:String,
+    motherlastename:String,
     phone:String,
+    ci:String,
+    ru:String,
+    claveMatricula:String,
     email:String,
+    sha1EmailCI:String,
     password: String,
+    sha1PassowrdClaveM:String,
     role:{type:String,
-        enum:['student','teacher'],
+        enum:['student','teacher','admin'],
         default:'student'   
     },
     cursos:Array,

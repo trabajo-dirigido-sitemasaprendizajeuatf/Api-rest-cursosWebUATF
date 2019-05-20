@@ -17,11 +17,11 @@ function createToken (user){
 }
 
 //decodifica el token
-function decodeToken(token){
-    const decoded = new Promise((resolve, reject)=>{
+function  decodeToken(token){
+    const decoded =  new Promise( (resolve, reject)=>{
         try {
-            const payload = jwt.decode(token, config.SECRET_TOKEN)
-            //console.log(payload)
+            const  payload = jwt.decode(token, config.SECRET_TOKEN)
+            console.log(payload)
             console.log(payload.exp-moment().unix())
             console.log(moment().unix())
             
@@ -29,7 +29,7 @@ function decodeToken(token){
                 reject({
                     status:401,
                     message:'El token a exprirado'
-                })
+                }) 
             }
             
             resolve(payload.sub)
@@ -39,9 +39,12 @@ function decodeToken(token){
                 message: 'Invalid Token'
             })
         }
-    })
-    return decoded
-}
+    });
+
+
+    // console.log(decoded)
+    return  decoded     
+};
 
 module.exports = {
     createToken,
