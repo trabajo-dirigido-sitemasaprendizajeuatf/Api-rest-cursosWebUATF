@@ -19,6 +19,8 @@ app.use(bodyParser.json());
 app.use('/courses/api/v1.0/',services)
 app.use('/',services);
 
+app.use(express.static('public'))
+
 
 
 //server listening

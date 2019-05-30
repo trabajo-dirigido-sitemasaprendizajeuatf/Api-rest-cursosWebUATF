@@ -7,15 +7,17 @@ const User = require('../database/collections/user');
 const generateToken = require('../token/generateToken');
 const bcrypt = require('bcryptjs');
 
+const capitalceText= require('../routes/api/v1.0/capitaliceText')
+
 // signUp-------------
 function signUp(req, res){
-  
+//   capitalceText.capitalceText()
 
     const user = new User({
-         name :req.body.name,
-         lastname: req.body.lastname,
+         name :capitalceText.capitalceText(req.body.name),
+         lastname: capitalceText.capitalceText(req.body.lastname),
          motherlastename:'', 
-         phone: req.body.phone,
+         phone:req.body.phone,
          email:req.body.email,
          ci:'',
          ru:'',

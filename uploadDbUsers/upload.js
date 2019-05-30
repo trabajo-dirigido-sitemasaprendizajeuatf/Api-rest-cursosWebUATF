@@ -47,6 +47,7 @@ const DBestudiantes=require('./DBestudiantes.json')   //es el Json que contiene 
             });
         }else{
             console.log('existing user');
+            console.log(con=con+1)
         }
     });
     // console.log('end----');
