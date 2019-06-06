@@ -10,6 +10,7 @@ const Course = require('../../../database/collections/course')
 
 
     var course= new Course.courses({
+        idTeacher:req.body.idTeacher,
         namecourse:req.body.namecourse,
         sigla:req.body.sigla,
         lavel:req.body.lavel,
@@ -110,9 +111,11 @@ var upload=multer({
 function UploadVideo(req,res){
 
     var id=req.params.id
+    
     console.log(req.params.id);
     
     upload(req,res, (err)=>{
+        var titleVideo= req.body.title
         if(err){
             res.status(500).json({
 
@@ -145,13 +148,16 @@ function UploadVideo(req,res){
                     if(data.length==1 && data[0]==""){
                         seccion.video.push({
                             idVideo:filedata._id,
-                            linkfile:filedata.linkfile
+                            linkfile:filedata.linkfile,
+                            title:titleVideo
+                            
                         })
 
                     }else{
                         aux.push({
                             idVideo:infvideo._id,
-                            linkfile:infvideo.linkfile
+                            linkfile:infvideo.linkfile,
+                            title:titleVideo
                         })
                         data=data.concat(aux);
                         seccion.video=data;
@@ -211,10 +217,10 @@ function listarcursos(req, res){
 
 
 
-//mostrar el contenido de cada curso.
+//mostrar el contenido de cada curso todas las secciones de un curos.
 function motrarseccioncurso(req, res){
     
-    var id=req.body.idcurso
+    var id=req.params.idcourse
     // console.log(id);
     
     // console.log('peticion mostrar secciones del curso')
@@ -237,12 +243,50 @@ function motrarseccioncurso(req, res){
     })
 
 }
+// muestra los cursos pertenecientes a un teacher
+function mostrarCursoporTeacher(req,res){
 
+    var idCourse=req.params.idcourse
+console.log(req.params.idcourse);
+
+
+    Course.courses.find({idTeacher:idCourse},(err, data)=>{
+        if(data){
+            res.status(200).send(data);
+            console.log(data);
+            
+        }
+        if(err){
+            res.status(400).send({
+                message:'err',
+                err:'no se encostro ningun curso '
+            })
+        }
+    })
+}
+
+function mostrarUnCursoPorId(req,res){
+
+    var idcourse=req.params.idcourse
+
+    Course.courses.findById({_id:idcourse},(err,data)=>{
+        console.log(data)
+        if(data){
+            res.status(200).send(data)
+        }
+        if(err){
+            res.status(400).send({message:'no se encontro el curso'})
+        }
+    })
+
+}
 
 module.exports={
  crearcurso,
  Createseccion,
  listarcursos,
  motrarseccioncurso,
+ mostrarCursoporTeacher,  
+ mostrarUnCursoPorId,  
  UploadVideo
 }

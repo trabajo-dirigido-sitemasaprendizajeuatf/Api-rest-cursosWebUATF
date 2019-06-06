@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const CuorseSchema = new Schema({
+    idTeacher:String,
     namecourse:String,
     sigla:String,
     lavel:Number,
@@ -55,6 +56,7 @@ const respuesta = new Schema(
 var courses= mongoose.model('courses',CuorseSchema)
 var seccions= mongoose.model('seccions',seccion)
 var videos = mongoose.model('videos',Videos)
+
 
 module.exports={
     courses:courses,

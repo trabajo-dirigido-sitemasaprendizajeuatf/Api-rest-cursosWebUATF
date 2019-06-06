@@ -10,6 +10,7 @@ const searchUser=require('./searchUser');
 const upload = require('./upladFile')
 const sha1=require('sha1')
 const curso=require('./crearCurso')
+const ViewCourseForId = require('./crearCurso')
 
 const express = require('express');
 const route = express.Router();
@@ -62,13 +63,23 @@ route.post('/uploadvideo/idSeccion=:id',curso.UploadVideo,(req, res)=>{
 
 })
 
-//listar los cursos
+//listar los cursos creados por un solo maestro
+route.get('/listcoursesforteacher/idcourse=:idcourse',curso.mostrarCursoporTeacher,(req, res)=>{
+
+})
+
+//listar todos los cursos
 route.get('/listarcursos',curso.listarcursos,(req,res)=>{
 
 })
 
 // listar las secciones(contenido de cada curso) de los curso
-route.get('/listarsecciones',curso.motrarseccioncurso,(req, res)=>{
+route.get('/listarsecciones/idcourse=:idcourse',curso.motrarseccioncurso,(req, res)=>{
+
+})
+
+// muestra un solo curso por medio del id
+route.get('/mostrarcursoforid/:idcourse',ViewCourseForId.mostrarUnCursoPorId,(req,res)=>{
 
 })
 
