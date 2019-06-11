@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const file = Schema({
    
-    
+    idCourse:String,
     originalname:String,
     filename:String,
     Physicalpath:String,
@@ -14,4 +14,4 @@ const file = Schema({
     size:Number 
 });
 
-module.exports = mongoose.model('filesServices',file);
+module.exports = mongoose.model('posterCurso',file);

@@ -33,7 +33,8 @@ function  decodeToken(token){
             }
             
             resolve(payload.sub)
-        } catch (error) {
+        } 
+        catch (error) {
             reject({
                 status:500,
                 message: 'Invalid Token'

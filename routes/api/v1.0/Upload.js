@@ -1,8 +1,5 @@
 'use strict'
 
-const Course=require('../../../database/collections/course')
-
-
 const path=require('path')
 const File=require('../../../database/collections/file')
 const multer=require('multer')
@@ -27,19 +24,16 @@ const fs=require('fs')
 
     var upload = multer({
         storage:storage
-    }).single("image");
+    }).single("video");
 
 
 function uploadFile(req,res){
        
         upload(req, res, (err) => {
             // console.log(req.file)       //para  verificar que la imagen lleag a la api
-
-            console.log('llego file----');
-            
+            console.log('llego file');
             console.log(req.file)
-            console.log(req.params.idcourse);
-            const idcourse=req.params.idcourse
+           
             
            if(err){
                res.status(500).json({
@@ -53,7 +47,6 @@ function uploadFile(req,res){
                console.log(host)
     
                var filedata = {
-                   idCourse:idcourse,
                    originalname:req.file.originalname,
                    filename: req.file.filename,
                    Physicalpath: req.file.path,
@@ -63,7 +56,6 @@ function uploadFile(req,res){
                }
             //    console.log(filedata);
     
-
                var file=new File(filedata);
                file.save().then((infofile)=>{
                    console.log(infofile);
@@ -72,23 +64,7 @@ function uploadFile(req,res){
                    
                    console.log(infofile._id);
                    
-                //    console.log(infofile.linkfile)
-                    var lavel=90
-                   var posterCurso = filedata.linkfile;
-                //    var posterCurso={posterCurso:filedata.linkfiel}
-                   console.log(posterCurso);
-                   
-                   Course.courses.findOneAndUpdate({_id:idcourse},{posterCurso},(error, course2)=>{
-                       if(error){
-                           res.status(200).send({message:'error al buscar el curso'})
-                       }
-                       if(course2){
-                            
-                            console.log(course2);
-                            res.status(200).send(course2)
-                            
-                       }
-                   })
+                   console.log(infofile.linkfile)
                    
                })
                
@@ -101,7 +77,7 @@ function uploadFile(req,res){
            var ruta =file.relativepath+rutafile[1]
            console.log(ruta);
           
-        //    res.status(200).send(file)
+           res.status(200).send(file)
            
         })
 

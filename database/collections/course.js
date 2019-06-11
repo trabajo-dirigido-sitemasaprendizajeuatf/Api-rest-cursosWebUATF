@@ -9,6 +9,7 @@ const CuorseSchema = new Schema({
     sigla:String,
     lavel:Number,
     title:String,
+    posterCurso:String,
     autor:String,
     descripcion: String,
     seccionVideo:Array,

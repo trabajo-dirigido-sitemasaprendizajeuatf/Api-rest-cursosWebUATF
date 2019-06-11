@@ -11,6 +11,7 @@ const upload = require('./upladFile')
 const sha1=require('sha1')
 const curso=require('./crearCurso')
 const ViewCourseForId = require('./crearCurso')
+const unploadimg=require('./upladFile')
 
 const express = require('express');
 const route = express.Router();
@@ -89,9 +90,10 @@ route.post('/uploadfile',upload.uploadFile,(req,res)=>{
 })
 
 
+// subir archicos de tipo imagen (poster)
+ route.post('/uploadimg/idcourse=:idcourse', unploadimg.uploadFile,(req,res)=>{
 
-
-
+})
 
 
 //SHA1  ---> prueba

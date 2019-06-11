@@ -18,6 +18,7 @@ const Course = require('../../../database/collections/course')
         autor:req.body.autor,
         seccion:req.body.seccion,
         descripcion: req.body.descripcion,
+        posterCurso:'poster',
         video:[]
     })
 
@@ -135,8 +136,10 @@ function UploadVideo(req,res){
 
             
             var data = new Course.videos(filedata);
+            var idvideo;
             data.save().then((infvideo)=>{
                 console.log(infvideo);
+                idvideo=infvideo._id;
                 var seccion={
                     video:new Array()
                 }
@@ -173,7 +176,18 @@ function UploadVideo(req,res){
                         }
                         if(doc){
                             // res.status(200).send(doc)
-                            res.status(200).send(doc)
+                            Course.videos.findById({_id:idvideo},(err4,doc4)=>{
+                                if(err4){
+                                    res.status(500).send({
+                                        message:'err en la busqueda'
+                                    })
+                                    return;
+                                }
+                                if(doc4){
+                                    res.status(200).send(doc4)
+                                }
+                            })
+                            
                             // console.log(doc);
                             
                         }
