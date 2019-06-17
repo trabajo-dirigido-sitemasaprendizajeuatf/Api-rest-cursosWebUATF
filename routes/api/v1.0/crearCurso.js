@@ -112,11 +112,12 @@ var upload=multer({
 function UploadVideo(req,res){
 
     var id=req.params.id
+    var title=req.params.title
     
     console.log(req.params.id);
     
     upload(req,res, (err)=>{
-        var titleVideo= req.body.title
+        var titleVideo= req.params.title
         if(err){
             res.status(500).json({
 
@@ -295,12 +296,26 @@ function mostrarUnCursoPorId(req,res){
 
 }
 
+
+function CrearRepaso(req,res){
+
+    req.body.preguntas.map(data=>console.log(data))
+
+   
+    res.status(200).send(req.body)
+    
+}
+
+
+
+
 module.exports={
  crearcurso,
  Createseccion,
  listarcursos,
  motrarseccioncurso,
  mostrarCursoporTeacher,  
- mostrarUnCursoPorId,  
+ mostrarUnCursoPorId,
+ CrearRepaso,
  UploadVideo
 }

@@ -60,7 +60,7 @@ route.post('/seccion',curso.Createseccion,(req, res)=>{
 
 // subir los videos correspondientes a cada seccion.
 // http://localhost:3005/uploadvideo/idSeccion=5ced54dba8f9443ac069963f
-route.post('/uploadvideo/idSeccion=:id',curso.UploadVideo,(req, res)=>{
+route.post('/uploadvideo/idSeccion=:id/title=:title',curso.UploadVideo,(req, res)=>{
 
 })
 
@@ -95,6 +95,11 @@ route.post('/uploadfile',upload.uploadFile,(req,res)=>{
 
 })
 
+
+// repasos el los videos
+route.post('/cuestionariorepaso',curso.CrearRepaso,(req, res)=>{
+
+})
 
 //SHA1  ---> prueba
 route.post('/sha1',(req,res)=>{
