@@ -298,8 +298,23 @@ function mostrarUnCursoPorId(req,res){
 
 
 function CrearRepaso(req,res){
+  var o=  { prsegunta: '¿que es seguiridad de sistemas?',
+    posiblerespuesta:[ 'mantener el bienestar de los equipos',
+       'preservar la cofidencialidad',
+       'proteccion de los datos' ],
+    respuestaCorrecta: [ '3' ] }
+ var i= { prsegunta: '¿existen los niveles de seguridad?',
+    posiblerespuesta: [ 'si', 'no' ],
+    respuestaCorrecta: [ '1' ] }
 
-    req.body.preguntas.map(data=>console.log(data))
+    // req.body.preguntas.map(data=>{
+
+    // })
+
+    // req.body.preguntas.map(data=>console.log(data))
+    console.log(req.body.idVideo)
+    console.log(req.body.examnen.preguntas)
+    console.log((req.body.examnen.preguntas).length)
 
    
     res.status(200).send(req.body)
