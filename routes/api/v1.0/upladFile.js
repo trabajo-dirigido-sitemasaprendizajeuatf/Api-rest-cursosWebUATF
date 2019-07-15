@@ -39,7 +39,7 @@ function uploadFile(req,res){
             
             console.log(req.file)
             console.log(req.params.idcourse);
-            const idcourse=req.params.idcourse
+            const idcourse = req.params.idcourse
             
            if(err){
                res.status(500).json({

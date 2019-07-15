@@ -1,6 +1,7 @@
 'use strict'
 
 const Course = require('../../../database/collections/course')
+const ExamenVideo = require('../../../database/collections/examenVideo')
 // const Seccion = require('../../../database/collections/seccion')
 
 
@@ -296,31 +297,42 @@ function mostrarUnCursoPorId(req,res){
 
 }
 
-
+// examenes o repados que se añadiran al video
 function CrearRepaso(req,res){
-  var o=  { prsegunta: '¿que es seguiridad de sistemas?',
-    posiblerespuesta:[ 'mantener el bienestar de los equipos',
-       'preservar la cofidencialidad',
-       'proteccion de los datos' ],
-    respuestaCorrecta: [ '3' ] }
- var i= { prsegunta: '¿existen los niveles de seguridad?',
-    posiblerespuesta: [ 'si', 'no' ],
-    respuestaCorrecta: [ '1' ] }
 
-    // req.body.preguntas.map(data=>{
+    console.log(req.body)
 
-    // })
+//   { idVideo: '5d23c5126fa6352b586c2394',
+//   examen: { preguntas: [ [Object], [Object], [Object] ] },
+//   showTimeExam: '71' }
 
-    // req.body.preguntas.map(data=>console.log(data))
     console.log(req.body.idVideo)
-    console.log(req.body.examnen.preguntas)
-    console.log((req.body.examnen.preguntas).length)
 
-   
-    res.status(200).send(req.body)
+    var idVideo = req.body.idVideo;
+    var examen = req.body.examen.preguntas;
+    var timeShowExamen = req.body.showTimeExam;
+
+    
+    const examenVideo= new ExamenVideo({
+        examen:examen,
+        idVideo:idVideo,
+        timeShowExamen:timeShowExamen
+    })
+
+    examenVideo.save((err, data)=>{
+        if(err){
+            console.log(err)
+            res.status(400).send({err:'error al guardar las preguntas del examen'})
+        }
+        if(data){
+            console.log(data)
+            res.status(200).send(data)
+        }
+    })
+
+    // res.status(200).send(req.body)  
     
 }
-
 
 
 

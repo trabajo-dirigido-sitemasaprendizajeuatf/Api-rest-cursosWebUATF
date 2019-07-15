@@ -12,6 +12,7 @@ const sha1=require('sha1')
 const curso=require('./crearCurso')
 const ViewCourseForId = require('./crearCurso')
 const unploadimg=require('./upladFile')
+const UploadMaterialApoyo=require('./uploadMaterialApoyo')
 
 const express = require('express');
 const route = express.Router();
@@ -100,6 +101,25 @@ route.post('/uploadfile',upload.uploadFile,(req,res)=>{
 route.post('/cuestionariorepaso',curso.CrearRepaso,(req, res)=>{
 
 })
+
+
+// material de apoyo del video (archivos)
+
+route.post('/Upload/file/Materia/Apoyo/idVideo=:idVideo/filename=:filename',UploadMaterialApoyo.MaterialApoyo)
+
+// material de apoyo Links
+route.post('/Upload/links', UploadMaterialApoyo.Links)
+
+
+// monstar los recurso
+
+route.get('/Show/file/Materia/Apoyo/idVideo=:idVideo', UploadMaterialApoyo.showMaterialapoyo)
+
+route.get('/Show/materialapoyo/links/idVideo=:idVideo', UploadMaterialApoyo.showLinks)
+
+
+
+
 
 //SHA1  ---> prueba
 route.post('/sha1',(req,res)=>{
