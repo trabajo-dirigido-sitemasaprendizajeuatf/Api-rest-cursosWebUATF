@@ -13,6 +13,7 @@ const CuorseSchema = new Schema({
     autor:String,
     descripcion: String,
     seccionVideo:Array,
+    avarageRetingStar:{type:Number, default:0},
     createDateCourse:{type:Date, default:Date.now()}
 })
 

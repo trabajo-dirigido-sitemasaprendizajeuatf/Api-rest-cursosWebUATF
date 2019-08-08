@@ -13,6 +13,7 @@ const curso=require('./crearCurso')
 const ViewCourseForId = require('./crearCurso')
 const unploadimg=require('./upladFile')
 const UploadMaterialApoyo=require('./uploadMaterialApoyo')
+const Ratings = require('./rating')
 
 const express = require('express');
 const route = express.Router();
@@ -117,6 +118,12 @@ route.get('/Show/file/Materia/Apoyo/idVideo=:idVideo', UploadMaterialApoyo.showM
 
 route.get('/Show/materialapoyo/links/idVideo=:idVideo', UploadMaterialApoyo.showLinks)
 
+
+//  Star ratings  (calificiones con estrella)
+
+route.post('/rating/star',(Ratings.ratings))
+
+route.post('/avarage/rating/start',Ratings.avarage)     //--> obtine el promedio de los voto de cada course
 
 
 

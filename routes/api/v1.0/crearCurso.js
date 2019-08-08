@@ -2,6 +2,7 @@
 
 const Course = require('../../../database/collections/course')
 const ExamenVideo = require('../../../database/collections/examenVideo')
+const Rating = require('../../../database/collections/ratings')
 // const Seccion = require('../../../database/collections/seccion')
 
 
@@ -32,7 +33,13 @@ const ExamenVideo = require('../../../database/collections/examenVideo')
 
         if(data!=''){
             // console.log(data);
-            
+                    
+                var objCourse={    //obejeto para el rating start 
+                    idCourse:data._id
+                }
+                var rating=new Rating.rating(objCourse);
+                rating.save();
+
             res.status(200).send(data)
             dataCourse= data;
             
