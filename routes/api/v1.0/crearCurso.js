@@ -304,7 +304,8 @@ function mostrarUnCursoPorId(req,res){
 
 }
 
-// examenes o repados que se añadiran al video
+
+// examenes o repados que se añadiran al video-----------
 function CrearRepaso(req,res){
 
     console.log(req.body)
@@ -342,6 +343,24 @@ function CrearRepaso(req,res){
 }
 
 
+// tomar el examen (exam student)
+
+function takeExam(req, res){
+
+    const idVideo = req.body.idVideo;
+    const idUser = req.body.idUser;
+    
+    ExamenVideo.find({idVideo:idVideo})
+        .then((doc)=>{
+            console.log(doc)
+            res.status(200).send(doc)
+        })
+        .catch((err)=>{
+            console.log(err)
+            res.status(400).send(err)
+        })
+
+}
 
 module.exports={
  crearcurso,
@@ -351,5 +370,6 @@ module.exports={
  mostrarCursoporTeacher,  
  mostrarUnCursoPorId,
  CrearRepaso,
+ takeExam,
  UploadVideo
 }

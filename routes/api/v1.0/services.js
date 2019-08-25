@@ -14,6 +14,8 @@ const ViewCourseForId = require('./crearCurso')
 const unploadimg=require('./upladFile')
 const UploadMaterialApoyo=require('./uploadMaterialApoyo')
 const Ratings = require('./rating')
+const CourseTake = require('./courseTake')
+
 
 const express = require('express');
 const route = express.Router();
@@ -103,6 +105,10 @@ route.post('/cuestionariorepaso',curso.CrearRepaso,(req, res)=>{
 
 })
 
+route.post('/take/exam/student', curso.takeExam, (req, res)=>{
+
+})
+
 
 // material de apoyo del video (archivos)
 
@@ -126,6 +132,11 @@ route.post('/rating/star',(Ratings.ratings))
 route.post('/avarage/rating/start',Ratings.avarage)     //--> obtine el promedio de los voto de cada course
 
 
+// cursos tomados- courseTake 
+route.post('/courses/takes/exam',CourseTake.courseTake)
+
+route.post('/courses/examen/resolved', CourseTake.checkExamResolved)
+
 
 
 //SHA1  ---> prueba
@@ -140,6 +151,10 @@ route.post('/sha1',(req,res)=>{
     "5e3c27f996b7f266a6235a34416a59dd4fa0d64e"
       
 })
+
+
+
+
 
 // :::::::::: upploadDataUserStudent in mongodb  ::::::::::
 const uplad = require('../../../uploadDbUsers/upload')
