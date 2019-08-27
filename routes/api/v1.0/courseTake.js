@@ -9,6 +9,8 @@ async function courseTake(req,res){
     const IDVIDEO=req.body.idVideo;
     const NOTA = req.body.notas
     const IDUSER = req.body.idUser;
+
+    // si el usuario no esta logueado
     if(!IDUSER){
         return
     }
