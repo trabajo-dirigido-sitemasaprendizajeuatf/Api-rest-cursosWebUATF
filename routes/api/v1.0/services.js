@@ -15,6 +15,7 @@ const unploadimg=require('./upladFile')
 const UploadMaterialApoyo=require('./uploadMaterialApoyo')
 const Ratings = require('./rating')
 const CourseTake = require('./courseTake')
+const MiscursosUser = require('./misCursosUser')
 
 
 const express = require('express');
@@ -136,6 +137,14 @@ route.post('/avarage/rating/start',Ratings.avarage)     //--> obtine el promedio
 route.post('/courses/takes/exam',CourseTake.courseTake)
 
 route.post('/courses/examen/resolved', CourseTake.checkExamResolved)
+
+
+
+// --agrega los cursos que tomo o que agrego un estudiante 
+
+route.post('/add/course/student',MiscursosUser.MisCursosUser)
+    //mostrar los cursos de un usuario (mis cursos)
+route.post('/show/my/courses/student',MiscursosUser.MostrarMisCursosUser)
 
 
 
