@@ -93,6 +93,7 @@ const reqsha1passwordClaveM = sha1(req.body.password)
             id:user._id,
             email:user.email,
             name:user.name,
+            lastname:user.lastname,
             role:user.role
 
             

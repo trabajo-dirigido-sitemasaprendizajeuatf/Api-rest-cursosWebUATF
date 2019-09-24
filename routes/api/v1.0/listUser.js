@@ -39,8 +39,21 @@ function listUser(req, res){
     })
 }
 
+function listUserId(req,res){
+
+    console.log(req.params)
+    var idUser = req.params.idUser
+    User.findById({_id:idUser}).exec()
+        .then((doc)=>{
+            res.status(200).send(doc)
+        })
+        .catch(err=>{
+            res.status(400).send({err:'no se encontro el usuario'})
+        })
+}
 
 module.exports = {
-    listUser
+    listUser,
+    listUserId
 }
 

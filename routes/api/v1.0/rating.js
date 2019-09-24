@@ -241,10 +241,47 @@ async function avarage(req, res){
     })
 };
 
+function verVotoUsesr(req, res){
 
+    console.log(req.body)
+    const IDCOURSE = req.body.idCourse;
+    const IDUSER =  req.body.idUser;
+
+    Rating.rating.findOne({idCourse:IDCOURSE}, (err,doc)=>{
+        console.log(doc)
+        if(err){
+            console.log({err:err} 
+        )}
+
+        if(doc){
+            const ReatingStar = doc.ratingStar;
+            if(ReatingStar.length!=0){
+                ReatingStar.map((d,i)=>{
+                    if(IDUSER===d.idUser){
+                        const votoUser={
+                            idCourse:d.idCourse,
+                            idUser: d.idUser,
+                            voto:d.voto
+                        }
+                        res.status(200).send(votoUser)
+                    }
+                })
+            }else{
+                res.status(400).send({
+                    message:'El Usuario aun no tiene ningun voto',
+                    voto:0
+                })
+            }
+        }else{
+            res.status(400).send({err:'el curso no existe'})
+        }
+    })
+
+}
 
 
 module.exports={
     ratings,
-    avarage
+    avarage,
+    verVotoUsesr
 }

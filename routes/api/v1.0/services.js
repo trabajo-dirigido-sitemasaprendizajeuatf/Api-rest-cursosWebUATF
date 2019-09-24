@@ -16,6 +16,7 @@ const UploadMaterialApoyo=require('./uploadMaterialApoyo')
 const Ratings = require('./rating')
 const CourseTake = require('./courseTake')
 const MiscursosUser = require('./misCursosUser')
+const ChatForumVideo = require('./chatForumVideo')
 
 
 const express = require('express');
@@ -43,6 +44,8 @@ route.get('/private', auth ,(req, res)=>{
 
 //listar usuarir
 route.get('/users', listUser.listUser )
+  //listar un usuario por id
+route.get('/user/id=:idUser',listUser.listUserId)
 
 //searUser muestra al usuario que se logue en el navegador
 route.post('/userInterface',searchUser.searhcUnser,(req,res)=>{
@@ -131,7 +134,7 @@ route.get('/Show/materialapoyo/links/idVideo=:idVideo', UploadMaterialApoyo.show
 route.post('/rating/star',(Ratings.ratings))
 
 route.post('/avarage/rating/start',Ratings.avarage)     //--> obtine el promedio de los voto de cada course
-
+route.post('/reating/star/user',Ratings.verVotoUsesr)    //  -->
 
 // cursos tomados- courseTake 
 route.post('/courses/takes/exam',CourseTake.courseTake)
@@ -145,6 +148,33 @@ route.post('/courses/examen/resolved', CourseTake.checkExamResolved)
 route.post('/add/course/student',MiscursosUser.MisCursosUser)
     //mostrar los cursos de un usuario (mis cursos)
 route.post('/show/my/courses/student',MiscursosUser.MostrarMisCursosUser)
+
+
+// ---chatForum videos ----
+route.post('/chat/forum/video',ChatForumVideo.savechatForum)   //no habilitado --> por el seriodr de socket.io esta en app.js
+    //1) muestra en un array de aobetos todos las preguntas del chat.forum de un video
+route.post('/show/chat/forum/video',ChatForumVideo.mostraChatForum)
+
+
+
+
+
+
+// busqueda de un usuario de acuerdo al nombre,inicia o parte del nombre
+//   ert  --> valor que ingresa (puede ser una letra o palabra)
+
+route.get("/user/search=:srt", (req, res, next) => {
+    console.log(req.params)
+    let search =req.params.srt
+
+    User.find({name:new RegExp(search, 'i')}).exec( (error, docs) => {
+      res.status(200).json(
+        {
+          info: docs
+        }
+      );
+    })
+});
 
 
 
