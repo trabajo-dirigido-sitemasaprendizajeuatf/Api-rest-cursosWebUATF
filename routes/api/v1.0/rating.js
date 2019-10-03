@@ -247,6 +247,11 @@ function verVotoUsesr(req, res){
     const IDCOURSE = req.body.idCourse;
     const IDUSER =  req.body.idUser;
 
+    if(!IDCOURSE && !IDUSER){
+        console.log('datos incompletos --> retings');
+        res.status(400).send({message: 'datos incompletos, reatings'})
+    }
+
     Rating.rating.findOne({idCourse:IDCOURSE}, (err,doc)=>{
         console.log(doc)
         if(err){
@@ -264,7 +269,7 @@ function verVotoUsesr(req, res){
                             voto:d.voto
                         }
                         res.status(200).send(votoUser)
-                    }
+                    }   
                 })
             }else{
                 res.status(400).send({

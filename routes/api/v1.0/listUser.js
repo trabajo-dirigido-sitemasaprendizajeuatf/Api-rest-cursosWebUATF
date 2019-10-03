@@ -52,6 +52,7 @@ function listUserId(req,res){
         })
 }
 
+
 module.exports = {
     listUser,
     listUserId

@@ -18,7 +18,11 @@ async function Misursos(req, res){
 
 
    await MisCursosUser.misCursosUser.find({idUser:IDUSER},(err,doc)=>{
-    
+
+                console.log('====================================');
+                console.log(doc)
+                console.log('====================================');
+
                 if(err){
                     console.log({error:err})
                     res.status(200).send({message:err})
@@ -34,28 +38,58 @@ async function Misursos(req, res){
 
                 if(doc.length!=0){
                     // console.log(doc)
+                    var creado=false
                     
-                    MisCursosUser.misCursosUser.find({idCourse:IDCOURSE},(err2,doc2)=>{
 
-                            if(err2){
-                                console.log({error:err2})
-                                res.status(400).send({err:err2})
-                            }
-
-                            if(doc2.length!=0){
-                                console.log('el curso ya fue agregado---')
-                                console.log(doc2)
-                                res.status(200).send({message:'El curso ya fue agregado'})
-                            }
-                            
-                            if(doc2.length==0){
-                                miscursos.save().then((info2)=>{
-                                    console.log(info2)
-                                    res.status(200).send({ok:'Curso agregado exitosamente'})
-                                })
-                                return
-                            }
+                    doc.map((d,i)=>{
+                        if(d.idCourse===IDCOURSE){
+                            console.log('el curso ya fue agregado')
+                            creado=true
+                        }else{
+                            console.log('el curso no ha sido agregado')
+                        }
                     })
+
+
+
+                    if(creado){
+                        console.log('el curso ya fue agregado---')
+                        console.log(doc)
+                        res.status(200).send({message:'El curso ya fue agregado'})
+                        return
+                    }
+                    
+                    if(!creado){
+                        miscursos.save().then((info2)=>{
+                            console.log(info2)
+                            res.status(200).send({ok:'Curso agregado exitosamente'})
+                        })
+                        return
+                    }
+
+
+
+                    // MisCursosUser.misCursosUser.find({idCourse:IDCOURSE},(err2,doc2)=>{
+
+                    //         if(err2){
+                    //             console.log({error:err2})
+                    //             res.status(400).send({err:err2})
+                    //         }
+
+                    //         if(doc2.length!=0){
+                    //             console.log('el curso ya fue agregado---')
+                    //             console.log(doc2)
+                    //             res.status(200).send({message:'El curso ya fue agregado'})
+                    //         }
+                            
+                    //         if(doc2.length==0){
+                    //             miscursos.save().then((info2)=>{
+                    //                 console.log(info2)
+                    //                 res.status(200).send({ok:'Curso agregado exitosamente'})
+                    //             })
+                    //             return
+                    //         }
+                    // })
                 }
 
     })

@@ -238,6 +238,55 @@ function listarcursos(req, res){
 }
 
 
+// muestra los datos de un video title --> en la cual esta el titulo de clase
+async function dataVideoSeccion(req, res){
+    
+    const IDCOURSE = req.body.idCourse;
+    const IDVIDEO = req.body.idVideo;
+
+    try {
+
+        const objSeccion= await Course.seccions.find({idCourse:IDCOURSE}).exec()
+        if(objSeccion.length==0){
+            throw new  Error('no seccion')
+        }
+        console.log(objSeccion.length)
+        
+        var aux = []
+        for(var i=0; i<objSeccion.length; i++){
+            aux.push(objSeccion[i].video)
+            // console.log(aux[0])
+        }
+        
+        var delta=[];
+        aux.map((d,i)=>{
+            d.map((d2,i2)=>{
+                if(d2.idVideo==IDVIDEO){
+                    console.log(d2)
+                    delta.push(d2)
+
+                }
+            })
+        })
+    
+        if(delta.length===0){
+            throw new Error('no clase')
+        }
+        
+         res.send(delta)
+
+    } catch (error) {
+        
+        if(error.message==='no seccion'){
+            res.status(400).send({message:'seccion no encontrado'})
+        }
+        if(error.message === 'no clase'){
+            res.status(400).send({message:'clase no encontrado'})
+        }
+    }
+
+}
+
 
 
 //mostrar el contenido de cada curso todas las secciones de un curos.
@@ -305,6 +354,8 @@ function mostrarUnCursoPorId(req,res){
 }
 
 
+
+
 // examenes o repados que se añadiran al video-----------
 function CrearRepaso(req,res){
 
@@ -367,6 +418,7 @@ module.exports={
  Createseccion,
  listarcursos,
  motrarseccioncurso,
+ dataVideoSeccion,
  mostrarCursoporTeacher,  
  mostrarUnCursoPorId,
  CrearRepaso,

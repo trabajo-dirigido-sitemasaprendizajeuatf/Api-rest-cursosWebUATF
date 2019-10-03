@@ -92,6 +92,10 @@ route.get('/mostrarcursoforid/:idcourse',ViewCourseForId.mostrarUnCursoPorId,(re
 
 })
 
+// mostrar los datos de una clase (video de una seccion)
+route.post('/show/data/video/class',curso.dataVideoSeccion)
+
+
 //subir archivos --upload-file -- uri para subir arhivos en este caso videos MP4,etc
 route.post('/uploadfile',upload.uploadFile,(req,res)=>{
 
@@ -140,7 +144,7 @@ route.post('/reating/star/user',Ratings.verVotoUsesr)    //  -->
 route.post('/courses/takes/exam',CourseTake.courseTake)
 
 route.post('/courses/examen/resolved', CourseTake.checkExamResolved)
-
+route.post('/view/exam/student/course',CourseTake.mostarNotasStudent)   //--> muestra las notas de un estudinte
 
 
 // --agrega los cursos que tomo o que agrego un estudiante 

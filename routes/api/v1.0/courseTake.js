@@ -1,5 +1,6 @@
 'use strict'
 const CourseTake = require('../../../database/collections/coursesTake')
+const UserMisCursos = require('../../../database/collections/UserMiscursos')
 
 
  
@@ -219,7 +220,122 @@ function checkExamResolved(req, res){
 
 
 
+// funcion que muestra las notas de un usuario (student) por curso
+//////////////////////7
+async function  mostarNotasStudent(req, res){
+
+    const IDUSER = req.body.idUser;
+    const IDCOURSE = req.body.idCourse;
+
+    try {
+            const cantidadCursos= await UserMisCursos.misCursosUser.find({idUser:IDUSER}).exec()
+
+            if(cantidadCursos.length==0){
+                throw new Error('no cursos')
+            }
+
+    
+            var aux=[]
+            var idCourses = []
+        
+            console.log(cantidadCursos)
+
+
+            for(var i=0;i<cantidadCursos.length;i++){
+
+            const notas= await CourseTake.coursetake.find( {idUser:cantidadCursos[i].idUser}).exec()
+            // console.log(notas)
+            // console.log(notas.length)
+
+            if(notas.length==0){
+                throw new Error('sin cursos')
+            }
+
+            
+            for(var i=0;i<notas.length;i++){
+                    if(notas[i].idUser===IDUSER){
+                        aux.push(notas[i])
+                        idCourses.push(notas[i].idCourse)
+                    }
+            }
+            }
+            console.log(aux)
+            // console.log(idCourses)
+
+            var onlyOneCourse=[];
+
+            var len = idCourses.length;
+            var i = -1;
+
+            while (i++ < len) {
+                var j = i + 1;
+
+                for (; j < idCourses.length; ++j) {
+                if (idCourses[i] === idCourses[j]) {
+                   idCourses.splice(j--, 1);
+                }
+                }
+            }
+
+            
+            console.log(idCourses);
+            // console.log(onlyOneCourse)
+            
+            var a =[]
+            var b=[]
+
+            var len2 = idCourses.length;
+            var i2 = -1;
+            while(i2++ < len2){
+                var j2=i2
+                for (; j2 < aux.length; j2++) {
+                    var l=j2-1
+                    if(idCourses[i2] === aux[j2].idCourse){
+                        a.push(aux[j2])
+                    }
+                    
+                }
+                
+                if(a.length>0){
+
+                    b.push(a)
+                    a=[]
+                }
+            
+            }
+            
+
+            console.log('==============bbb======================');
+            console.log(b);
+            console.log(b.length)
+            console.log('=============end bb=======================');
+            res.send(b)
+
+           
+    } catch (error) {
+            if(error.message=='no cursos'){
+
+                res.status(400).send({message:'no tiene cursos agregados'})
+            }
+            if(error.message=='sin cursos'){
+                res.status(400).send({message:'no hay examenes'})
+            }
+            
+            // res.status(400).send({message:'ERROR ENESPERADO',erro:error.message})
+        // console.log(error)
+    }
+    
+                 
+     
+
+
+    
+}
+
+
+
 module.exports={
     courseTake:courseTake,
-    checkExamResolved:checkExamResolved
+    checkExamResolved:checkExamResolved,
+    mostarNotasStudent:mostarNotasStudent
 }
