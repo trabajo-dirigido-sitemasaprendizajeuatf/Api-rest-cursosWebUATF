@@ -17,6 +17,7 @@ const Ratings = require('./rating')
 const CourseTake = require('./courseTake')
 const MiscursosUser = require('./misCursosUser')
 const ChatForumVideo = require('./chatForumVideo')
+const Notas = require('./notas')
 
 
 const express = require('express');
@@ -158,6 +159,20 @@ route.post('/show/my/courses/student',MiscursosUser.MostrarMisCursosUser)
 route.post('/chat/forum/video',ChatForumVideo.savechatForum)   //no habilitado --> por el seriodr de socket.io esta en app.js
     //1) muestra en un array de aobetos todos las preguntas del chat.forum de un video
 route.post('/show/chat/forum/video',ChatForumVideo.mostraChatForum)
+
+
+
+// -----muestra las notas por curso para instructorio
+route.post('/show/notas/students/course' , Notas.mostrarNotasDeUnCurso)
+
+  // datos de un estudiante
+route.post('/show/data/stundent/for/course',Notas.ViewDataStudent)
+
+// muestra las notas de cada estudiante
+route.post('/show/notas/student', Notas.showNotasStudent)
+//muestra los estudinates de un cursos o cursos de un instructo
+route.post('/show/students/courses',Notas.showStudentCourse)
+
 
 
 

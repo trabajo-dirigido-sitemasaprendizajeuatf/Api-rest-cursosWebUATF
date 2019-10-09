@@ -238,28 +238,42 @@ async function  mostarNotasStudent(req, res){
             var aux=[]
             var idCourses = []
         
+            console.log('====================================');
             console.log(cantidadCursos)
+            console.log('====================================');
 
 
-            for(var i=0;i<cantidadCursos.length;i++){
+            // for(var i=0; i<cantidadCursos.length; i++){
 
-            const notas= await CourseTake.coursetake.find( {idUser:cantidadCursos[i].idUser}).exec()
-            // console.log(notas)
+            const notas= await CourseTake.coursetake.find( {idUser:IDUSER}).exec()
+            console.log(notas)
+            console.log(i)
+            console.log(cantidadCursos.length)
             // console.log(notas.length)
 
             if(notas.length==0){
                 throw new Error('sin cursos')
             }
 
-            
-            for(var i=0;i<notas.length;i++){
+            console.log(notas)
+            console.log(notas.length)
+            for(var i=0; i<notas.length; i++){
+                console.log(notas.length)
+                console.log(i)
                     if(notas[i].idUser===IDUSER){
                         aux.push(notas[i])
+                        
+                        console.log(notas[i])
                         idCourses.push(notas[i].idCourse)
                     }
             }
-            }
-            console.log(aux)
+
+            // }
+
+            
+            console.log('====================================');
+            // console.log(aux)
+            console.log('====================================');
             // console.log(idCourses)
 
             var onlyOneCourse=[];
@@ -306,8 +320,8 @@ async function  mostarNotasStudent(req, res){
             
 
             console.log('==============bbb======================');
-            console.log(b);
-            console.log(b.length)
+            // console.log(b);
+            // console.log(b.length)
             console.log('=============end bb=======================');
             res.send(b)
 
@@ -325,12 +339,9 @@ async function  mostarNotasStudent(req, res){
         // console.log(error)
     }
     
-                 
-     
-
-
-    
 }
+
+
 
 
 
