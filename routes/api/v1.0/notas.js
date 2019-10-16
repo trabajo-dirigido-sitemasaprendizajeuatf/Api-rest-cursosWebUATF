@@ -119,7 +119,7 @@ async function showNotasStudent(req, res){
 }
 
 
-// funcion que muestra todos los estudinates de un curso 
+// funcion que muestra todos los estudinates de un curso  (no se implemento)
 
 async function showStudentCourse(req, res){
 

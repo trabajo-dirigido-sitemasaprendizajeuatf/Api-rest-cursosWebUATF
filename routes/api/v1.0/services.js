@@ -175,6 +175,13 @@ route.post('/show/students/courses',Notas.showStudentCourse)
 
 
 
+// ADMIN
+const Admin = require('./admin');
+
+route.get('/admin/show/students', Admin.showUserStudents)
+route.get('/admin/show/teachers', Admin.showTeachers)
+
+
 
 
 
