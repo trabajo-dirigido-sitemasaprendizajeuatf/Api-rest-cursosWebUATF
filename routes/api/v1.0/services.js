@@ -180,7 +180,14 @@ const Admin = require('./admin');
 
 route.get('/admin/show/students', Admin.showUserStudents)
 route.get('/admin/show/teachers', Admin.showTeachers)
+route.put('/admin/update/role/user', Admin.updateRole)
+route.get('/admin/show/all/asistants', Admin.showAssistants)
 
+
+//generar archivos execel --> reportes
+route.get('/admin/show/students/report', Admin.reportStudentAdmin)
+route.get('/admin/show/teachers/report', Admin.reportsTeacherAdmin)
+route.get('/admin/show/assistant/report', Admin.reportAssistantsAdmin)
 
 
 

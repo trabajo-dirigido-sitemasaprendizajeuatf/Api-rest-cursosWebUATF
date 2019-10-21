@@ -18,7 +18,7 @@ const UserSchema = Schema({
     password: String,
     sha1PassowrdClaveM:String,
     role:{type:String,
-        enum:['student','teacher','admin'],
+        enum:['student','teacher','admin','assistant'],
         default:'student'   
     },
     cursos:Array,
