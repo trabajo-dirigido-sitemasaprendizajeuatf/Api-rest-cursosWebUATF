@@ -12,6 +12,7 @@ const UserSchema = Schema({
     phone:String,
     ci:String,
     ru:String,
+    avatarImage:String,
     claveMatricula:String,
     email:String,
     sha1EmailCI:String,

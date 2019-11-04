@@ -21,6 +21,7 @@ function signUp(req, res){
          email:req.body.email,
          ci:'',
          ru:'',
+         avatarImage:'',
          claveMatricula:'',
          sha1EmailCI:sha1(req.body.email),
          sha1PassowrdClaveM:sha1(req.body.password),

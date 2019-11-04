@@ -22,6 +22,7 @@ const DBestudiantes=require('./DBestudiantes.json')   //es el Json que contiene 
         phone:'',
         ci:u.ci,
         ru:u.ru,
+        avatarImage:'',
         claveMatricula:u.clave,
         email:'',
         sha1EmailCI:sha1(u.ci),

@@ -19,6 +19,7 @@ const MiscursosUser = require('./misCursosUser')
 const ChatForumVideo = require('./chatForumVideo')
 const Notas = require('./notas')
 
+const EditUserData = require('./editUserData')
 
 const express = require('express');
 const route = express.Router();
@@ -170,9 +171,23 @@ route.post('/show/data/stundent/for/course',Notas.ViewDataStudent)
 
 // muestra las notas de cada estudiante
 route.post('/show/notas/student', Notas.showNotasStudent)
-//muestra los estudinates de un cursos o cursos de un instructo
-route.post('/show/students/courses',Notas.showStudentCourse)
+// muestra los estudinates de un cursos o cursos de un instructo
+route.post('/show/students/courses', Notas.showStudentCourse)
 
+
+
+//::::::::reportes de las notas en excel (un docente tiene varios cursos el reporte muestra las notas perenecientes a esos cursos)
+route.post('/teacher/reports/notas', Notas.teacherReportsNotasCourse)
+
+
+// -----EDITAR CUENTA USUARIO (avatar, name, lastname, ru, email, etc..)
+route.post('/edit/my/account/user/idUser=:idUser',EditUserData.uploadFileAvatar)  //upload foto user (avatar)
+route.get('/Show/image/avatar/idUser=:idUser', EditUserData.showAvatarImage)                 // muestra la imagen de perfil del usuario
+route.get('/edit/show/users/data/iduser=:iduser',EditUserData.showDataUser)   // muestra los datos del usuario
+route.put('/edit/my/account/user/data', EditUserData.UpdateDataUser )         // recibe los datos que seran actualizados
+route.put('/security/update/email/ci/user', EditUserData.updateSegurityEmailCI)   // recibe el mail o ci que sera actualizado (seguridad)
+route.put('/security/update/password/clavem',EditUserData.updatePassowrdClaveM)   // recibe el el password o clave M. para ser actualizados
+// -----
 
 
 // ADMIN
@@ -188,6 +203,8 @@ route.get('/admin/show/all/asistants', Admin.showAssistants)
 route.get('/admin/show/students/report', Admin.reportStudentAdmin)
 route.get('/admin/show/teachers/report', Admin.reportsTeacherAdmin)
 route.get('/admin/show/assistant/report', Admin.reportAssistantsAdmin)
+
+
 
 
 

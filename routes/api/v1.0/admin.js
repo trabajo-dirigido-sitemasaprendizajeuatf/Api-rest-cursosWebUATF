@@ -86,7 +86,12 @@ function updateRole(req, res){
 // funcion que muestra todos los auxiliares
 async function showAssistants(req, res){
 
+
+
     const assistants = await User.find({role:'assistant'}).exec()
+
+    console.log(assistants.length)
+
     if(assistants.length===0){
         res.status(400).send({message:'no hay auxiliares'})
     }
