@@ -21,6 +21,9 @@ const Notas = require('./notas')
 
 const EditUserData = require('./editUserData')
 
+// backups
+const Backups = require('./backup') 
+
 const express = require('express');
 const route = express.Router();
 
@@ -60,7 +63,7 @@ route.post('/verificaToken', userCtrl.verificarToken, (req, res)=>{
 })
 // :::::::::::::::::CURSOSO::::::::::::::::::::::::::
 //crear crear cursos -- docente
-route.post('/crearcurso',curso.crearcurso,(req, res)=>{
+route.post('/crearcurso',auth,curso.crearcurso,(req, res)=>{
 
 })
 // crear las seccion del curso
@@ -205,7 +208,9 @@ route.get('/admin/show/teachers/report', Admin.reportsTeacherAdmin)
 route.get('/admin/show/assistant/report', Admin.reportAssistantsAdmin)
 
 
-
+// Backups
+route.get('/backup', Backups.doBackup)
+route.get('/showfiles', Backups.showFiles)
 
 
 

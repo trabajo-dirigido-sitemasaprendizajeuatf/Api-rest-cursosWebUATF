@@ -153,6 +153,8 @@ async function teacherReportsNotasCourse(req, res){
 
     const misCourseTeacher = await Course.courses.find({idTeacher:IDTEACHER}).exec();
 
+    // console.log(misCourseTeacher)
+
     var misStudents=[];
     var IDCOURSE=[]
     var nombreMateria=[]
@@ -200,14 +202,20 @@ async function teacherReportsNotasCourse(req, res){
                     }
                     
                 }
-            
+                // console.log('------')
+                // console.log(aux)
+                // console.log('-----end ------')
+
+
                 var nota=0
                 for (let d = 0; d < aux.length; d++) {
                     for (let e = 0; e < aux[d].notas.length; e++) {
                         nota=nota+aux[d].notas[e].nota
                     }
                 }
-
+                // console.log('------')
+                // console.log(nota)
+                // console.log('-----end ------')
                 var user={
                     Nombres:dataAndNotaStudents.name,
                     APaterno:dataAndNotaStudents.lastname,

@@ -1,9 +1,13 @@
 'use strict'
 
  const generateToken = require('../token/generateToken')
-
+const User = require('../database/collections/user')
 
 function isAuth(req, res, next){
+
+
+    console.log('--------------aut teacher');
+
     console.log(req.headers.autorization);
     if(!req.headers.autorization){
         
@@ -14,8 +18,21 @@ function isAuth(req, res, next){
     generateToken.decodeToken(token)
         .then(response=>{
             req.user = response
-            console.log(req.user)
-            next();
+            console.log(response)
+
+            User.findById({_id:response},(err, resul)=>{
+
+                console.log(resul)
+                if(resul.role==="teacher" || resul.role==="admin"){
+                    next();
+                    
+                }else{
+
+                    res.status(404).send({message:'No tines acceso'})
+                }
+            })
+
+            // next();
         })
         .catch(response=>{
             res.status(response.status)
@@ -24,5 +41,7 @@ function isAuth(req, res, next){
         
         })
 }
+
+
 
 module.exports = isAuth;    

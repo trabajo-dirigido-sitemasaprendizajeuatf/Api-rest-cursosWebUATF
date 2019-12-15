@@ -21,6 +21,7 @@ function  decodeToken(token){
     const decoded =  new Promise( (resolve, reject)=>{
         try {
             const  payload = jwt.decode(token, config.SECRET_TOKEN)
+            
             console.log(payload)
             console.log(payload.exp-moment().unix())
             console.log(moment().unix())
