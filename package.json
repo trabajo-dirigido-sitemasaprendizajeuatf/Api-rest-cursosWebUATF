@@ -26,7 +26,7 @@
     "path": "^0.12.7",
     "sha1": "^1.1.1",
     "socket.io": "^2.2.0",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.11"
